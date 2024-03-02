@@ -83,10 +83,11 @@ ${CROSS_COMPILE}readelf -a ${OUTDIR}/busybox/busybox | grep "program interpreter
 ${CROSS_COMPILE}readelf -a ${OUTDIR}/busybox/busybox | grep "Shared library"
 
 # TODO: Add library dependencies to rootfs
-cp /home/f74116110/Downloads/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1 ${OUTDIR}/rootfs/lib/
-cp /home/f74116110/Downloads/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libm.so.6 ${OUTDIR}/rootfs/lib64/
-cp /home/f74116110/Downloads/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libresolv.so.2 ${OUTDIR}/rootfs/lib64/
-cp /home/f74116110/Downloads/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libc.so.6 ${OUTDIR}/rootfs/lib64/
+FILE_SRCDIR=$(dirname $(which aarch64-none-linux-gnu-gcc))/..
+cp ${FILE_SRCDIR}/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1 ${OUTDIR}/rootfs/lib/
+cp ${FILE_SRCDIR}/aarch64-none-linux-gnu/libc/lib64/libm.so.6 ${OUTDIR}/rootfs/lib64/
+cp ${FILE_SRCDIR}/aarch64-none-linux-gnu/libc/lib64/libresolv.so.2 ${OUTDIR}/rootfs/lib64/
+cp ${FILE_SRCDIR}/aarch64-none-linux-gnu/libc/lib64/libc.so.6 ${OUTDIR}/rootfs/lib64/
 
 # TODO: Make device nodes
 cd ${OUTDIR}/rootfs/
