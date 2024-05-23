@@ -21,7 +21,19 @@ case "$1" in
         $0 start
         ;;
     status)
-        status_of_proc -p $PIDFILE $DAEMON $DAEMON_NAME && exit 0 || exit $?
+        if [ -f $PIDFILE ]; then
+            PID=$(cat $PIDFILE)
+            if ps -p $PID > /dev/null; then
+                echo "$DAEMON_NAME is running with PID $PID"
+                exit 0
+            else
+                echo "$DAEMON_NAME is not running, but PID file exists"
+                exit 1
+            fi
+        else
+            echo "$DAEMON_NAME is not running"
+            exit 3
+        fi
         ;;
     *)
         echo "Usage: $0 {start|stop|restart|status}"
